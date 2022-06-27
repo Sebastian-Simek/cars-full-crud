@@ -7,7 +7,18 @@ export async function signUp(email, password) {
   });
 
   if (error) {
-    console.error(error);
+    throw error;
+  } else {
+    return user;
+  }
+}
+
+export async function signIn(email, password) {
+  const { user, error } = await client.auth.signIn({
+    email: email,
+    password: password,
+  });
+  if (error) {
     throw error;
   } else {
     return user;
@@ -15,13 +26,24 @@ export async function signUp(email, password) {
 }
 
 
+export async function logOut() {
+  const { error } = await client.auth.signOut();
+}
+
+
+
 
 
 export async function addBook(book){
   const { data, error } = await client  
-    .from('cars')
+    .from('books')
     .insert(book)
     .single();
-
-  return data;
+  
+  if (error) {
+    throw error;
+  } else {
+    return data;
+  }
+  
 }
