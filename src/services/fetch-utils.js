@@ -31,6 +31,17 @@ export async function logOut() {
 }
 
 
+export async function getBooks() {
+  const { data, error } = await client 
+    .from('books')
+    .select('*');
+  if (error) {
+    throw error;
+  } else {
+    return data;
+  }
+  
+}
 
 
 
